@@ -57,14 +57,14 @@ namespace harmony::http {
 //                return static_cast<std::size_t>( out_it - s );
 //            } );
 
-            std::string buffer;
-            auto string_size = format_to(buffer, "HTTP/{} {} {}\r\nContent-Type: {}\r\nContent-Length: {} \r\n",
-                                         header.version, header.status_code,info, "text/html", body.size());
-
-            return buffer;
-
-
-            // consider streaming  a large body
+//            std::string buffer;
+//            auto string_size = format_to(buffer, "HTTP/{} {} {}\r\nContent-Type: {}\r\nContent-Length: {} \r\n",
+//                                         header.version, header.status_code,info, "text/html", body.size());
+//
+//            return buffer;
+//
+//
+//            // consider streaming  a large body
             return fmt::format("HTTP/{} {} {}\r\nContent-Type: {}\r\nContent-Length: {}\r\n{}{}",
                            header.version, // initial line
                            header.status_code, // initial line
