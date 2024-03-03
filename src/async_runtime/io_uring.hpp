@@ -41,14 +41,17 @@ public:
             auto *req = static_cast<harmony::request_data *>(io_uring_cqe_get_data(cqe_));
             switch (req->op_){
                 case harmony::operation::accept: {
+                    fmt::print("accept complete\n");
                     req->client_fd_ = cqe_->res;
                     break;
                 }
                 case harmony::operation::recv: {
+                    fmt::print("recv complete\n");
                     req->bytes_ = cqe_->res;
                     break;
                 }
                 case harmony::operation::send: {
+                    fmt::print("send complete\n");
                     req->bytes_ = cqe_->res;
                 }
             }

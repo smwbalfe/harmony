@@ -13,7 +13,7 @@ const char* http_response = "HTTP/1.1 200 OK\r\n"
                             "Content-Type: text/html\r\n"
                             "Content-Length: 59\r\n"
                             "\r\n"
-                            "<html><body><h1>Hello, this is an HTML response</h1></body></html";
+                            "<html><body><h1>Hello, this is an HTML response</h1></body></html>";
 
 
 
@@ -28,8 +28,12 @@ int main()
         std::string request_buffer;
         char read_buf[4096];
         size_t header_end = 0;
+
+        // TODO: validate the buffer starts with valid HTTP
         while(!harmony::http_parser::is_header_read(request_buffer, header_end)) {
-            request_buffer += std::string_view(read_buf, co_await socket.async_recv(client_fd, read_buf));
+            fmt::print("[AWAIT] reading http request header\n");
+            request_buffer += std::string_view(read_buf, co_await socket.async_recv(client_fd, read_buf, 4096));
+            fmt::print("{}\n", read_buf);
         }
 
         /*
@@ -47,7 +51,7 @@ int main()
             char read_buf[4096];
             uint32_t body_bytes_read = buffer.size() - body_start_offset;
             while (body_bytes_read != body_size) {
-                auto recv_bytes = co_await socket.async_recv(client_fd, read_buf);
+                auto recv_bytes = co_await socket.async_recv(client_fd, read_buf, 4096);
                 buffer += std::string_view(read_buf, recv_bytes);
                 body_bytes_read = buffer.size() - body_start_offset;
             }
@@ -56,20 +60,29 @@ int main()
                                                                buffer.end()});
     };
 
-    auto find_resource = [&](std::string_view resource) -> harmony::task<std::optional<std::string>> {
-        std::string file;
-        if (resource == "/") {
-            std::filesystem::path path = "/home/shriller44/dev/cpp/misc/poo-server/tests/index/index.html";
-            if (!exists(path)) {
-                co_return std::nullopt;
-            }
-            std::fstream f(path, std::ios::in);
-            std::string line;
-            while(std::getline(f, line)){
-                file += line;
-            }
+    auto find_resource = [&](std::string_view resource) -> harmony::task<std::optional<std::vector<char>>> {
+        std::string server_dir = "/home/shriller44/dev/cpp/misc/poo-server/tests/index";
+        std::string resource_path = fmt::format("{}{}", server_dir, resource);
+
+        std::filesystem::path path = resource_path;
+        if (!std::filesystem::exists(path)) {
+            co_return std::nullopt;
         }
-        co_return std::move(file);
+
+        std::ifstream file(path, std::ios::binary | std::ios::ate);
+        if (!file.is_open()) {
+            co_return std::nullopt;
+        }
+
+        std::streamsize size = file.tellg();
+        file.seekg(0, std::ios::beg);
+
+        std::vector<char> buffer(size);
+        if (!file.read(buffer.data(), size)) {
+            co_return std::nullopt;
+        }
+
+        co_return std::move(buffer);
     };
 
     auto write_response = [&](int client_fd, harmony::http::response response) -> harmony::task<void> {
@@ -77,34 +90,52 @@ int main()
         uint32_t bytes_to_send = data_to_send.size();
         uint32_t sent_bytes = 0;
         while (bytes_to_send != sent_bytes){
+
             std::string_view subset {data_to_send.begin() + sent_bytes, data_to_send.end()};
-            sent_bytes += co_await socket.async_send(client_fd, subset.data());
+            sent_bytes += co_await socket.async_send(client_fd, subset.data(), subset.size());
         }
+
     };
 
     auto client_handler = [&](harmony::client client) -> harmony::task<void> {
 
-        auto [header, body] = co_await read_and_parse_http_request(client.fd_);
 
-        auto resource = co_await find_resource(header.resource);
+        for (;;) {
+            fmt::print("[AWAIT] parse http\n");
+            fmt::print("endpoint: {}\n", client.ep_->address());
+            auto [header, body] = co_await read_and_parse_http_request(client.fd_);
 
-        harmony::http::response response;
+            fmt::print("[AWAIT] find resource\n");
+            auto resource = co_await find_resource(header.resource);
 
-        if (resource.has_value()){
-            response.header.status_code = 200;
-            response.header.content_type = "text/html";
-            response.body = resource.value();
-        } else {
-            response.header.status_code = 404;
-            response.body = "";
+            harmony::http::response response;
+
+            fmt::print("resource: '{}'\n", resource.has_value());
+            if (resource.has_value()) {
+                response.header.status_code = 200;
+                response.header.content_type = "text/plain";
+                response.body = resource.value();
+            } else {
+                fmt::print("404");
+                response.header.status_code = 404;
+                response.header.content_type = "text/html";
+
+                std::string err = "<html><body><h1>404 not found</h1></body></html>";
+
+                response.body = std::vector<char>(err.begin(), err.end());
+            }
+
+            fmt::print("[AWAIT] writing response\n");
+            co_await write_response(client.fd_, response);
+            fmt::print("[after await] response written\n");
         }
-
-        co_await write_response(client.fd_ , response);
     };
 
     auto server = [&]() -> harmony::task<void> {
         for (;;) {
+            fmt::print("[AWAIT] new client\n");
             harmony::client client = co_await acceptor.async_accept(io_ctx);
+
             io_ctx.post_task(client_handler(std::move(client)));
         }
     };

@@ -3,7 +3,7 @@ project(sockets)
 
 set(CMAKE_CXX_STANDARD 23)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -fsanitize=address -fno-sanitize-recover=address -fno-omit-frame-pointer -fsanitize=undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer")
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -fsanitize=address -fno-sanitize-recover=address -fno-omit-frame-pointer -fsanitize=undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer")
 
 find_package(fmt REQUIRED)
 find_package(PkgConfig REQUIRED)
@@ -44,7 +44,7 @@ mark_as_advanced(
 
 
 add_executable(server
-        tests/server.cpp
+        src/server.cpp
         temp/server_client.hpp
         src/http/http_builder.hpp
         src/server/async_client_acceptor.hpp
@@ -52,4 +52,5 @@ add_executable(server
         tests/simdjson.cpp
 )
 
+target_include_directories(server PUBLIC tests)
 target_link_libraries(server PRIVATE fmt::fmt liburing::liburing)

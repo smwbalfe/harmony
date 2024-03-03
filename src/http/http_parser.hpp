@@ -65,8 +65,8 @@ namespace harmony {
         auto get_kv_pair(const std::string_view line) {
             auto first_colon = line.find(':');
             auto key = std::views::take(line, static_cast<int>(first_colon));
-            auto value = std::string_view(line.begin() + first_colon + 1, line.end());
-            value.remove_prefix(1);
+            auto value = std::string_view(line.begin() + first_colon + 2, line.end());
+        
             return std::make_pair(key, value);
         }
 
@@ -98,15 +98,19 @@ namespace harmony {
             http::request_header http;
             scan_first_line(http, header_parts);
 
-            for (const auto &hp: std::views::take(std::views::reverse(header_parts),
-                                                  static_cast<int>(header_parts.size()) - 1)) {
-                auto [key, value] = get_kv_pair(hp);
+//            fmt::print("method: {} | resource: {} | version : {}\n", http.method, http.resource, http.version);
+            
+            for (auto it = std::next(header_parts.begin()); it != header_parts.end(); ++it) {
+                auto [key, value] = get_kv_pair(*it);
                 if (key == "Content-Length") {
                     std::from_chars(value.data(), value.data() + value.size(), http.content_length);
                 }
+
+//                fmt::print("key: {} , value: '{}'\n", key, value);
             }
 
-            fmt::print("content length: {}\n", http.content_length);
+
+//            fmt::print("content length: {}\n", http.content_length);
 
             return http;
         }

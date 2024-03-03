@@ -53,7 +53,7 @@ namespace harmony {
         bool await_ready() { return false; }
         void await_suspend(
                 std::coroutine_handle<> handle) noexcept {
-            fmt::print("suspending awaitable\n");
+            fmt::print("suspending awaitable (accept)\n");
             acc_ptr_->req_data_.handle_ = handle;
             acc_ptr_->req_data_.op_ = operation::accept;
             io_uring_sqe_set_data(acc_ptr_->entry_, &acc_ptr_->req_data_);
@@ -63,7 +63,6 @@ namespace harmony {
                     .ep_ = create_endpoint(&acc_ptr_->address_)};
         }
     };
-
 
     struct acceptor {
         accept_awaitable async_accept(io_context& ioc) {

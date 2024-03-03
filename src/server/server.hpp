@@ -78,7 +78,7 @@ namespace harmony {
             fmt::print("listen error\n");
             exit(1);
         }
-        fmt::print("started server\n");
+        fmt::print("started serve\n");
         return server_fd;
     }
 }
