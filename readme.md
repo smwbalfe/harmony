@@ -44,7 +44,7 @@ int main() {
      - We initialise the scheduler by *posting tasks* i.e booting off an initial coroutine for it to run.
      - Our scheduler will run continuously as long as there is at least one active task (coroutine). 
      - At each iteration we read from the front of the queue and resume the coroutine to let it run to the next suspend point, from which it hands back control to the scheduler control flow. 
-     - We then remove this coroutine from the queue.
+     - We then remove this coroutine from the queue (added back in the io_uring completion event code to run again).
      - We now wait on **io_uring** events, this will be an array of events submitted when we `co_await` 
 2. HTTP server
    - The user can register routes and the desired resource to send from this.
