@@ -29,7 +29,8 @@ namespace harmony {
 
                 return accept_awaitable { accept_context_ };
             }
-            recv_awaitable async_recv(int client_fd, char *buf, size_t size) {
+            recv_awaitable async_recv(int client_fd, char* buf, size_t size) {
+
                 std::shared_ptr recv_ptr = std::make_shared<recv_context>(recv_context{
                         .req_data_ = {},
                         .entry_ = nullptr,

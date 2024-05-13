@@ -4,9 +4,16 @@
 int main() {
     harmony::http_server server {8081};
 
-    server.get("/", [](harmony::request request) -> harmony::task<void> {
+    server.set_resource_dir("/home/shriller44/dev/cpp/projects/harmony/data");
+
+    server.get("/", [](harmony::request& request, harmony::response& response) -> harmony::task<void> {
         fmt::print("index route hit\n");
-        co_return;
+        co_return response.send_file("index.html");
+    });
+
+    server.get("/burger", [](harmony::request& request, harmony::response& response) -> harmony::task<void> {
+        fmt::print("burger route hit\n");
+        co_return response.send_file("burger.html");
     });
 
     server.start();

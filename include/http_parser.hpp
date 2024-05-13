@@ -39,11 +39,13 @@ namespace harmony {
             /* reads the header, returns the buffer which may have read parts of the body*/
             harmony::task<std::tuple<std::string, std::string, int>> read_header(int client_fd){
                 std::string request_buffer;
-                char read_buf[4096];
+                char buf[4096];
+
+
                 size_t header_end = 0;
                 // TODO: validate the buffer starts with valid HTTP
                 while(!harmony::http_parser::is_header_read(request_buffer, header_end)) {
-                    request_buffer += std::string_view(read_buf, co_await server_runtime_->async_recv(client_fd, read_buf, 4096));
+                    request_buffer += std::string_view(buf, co_await server_runtime_->async_recv(client_fd, buf, 4096));
                     // fmt::print("{}\n", read_buf);
                 }
 
