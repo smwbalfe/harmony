@@ -1,9 +1,7 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.21)
 project(harmony)
 
 set(CMAKE_CXX_STANDARD 26)
-
-
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -fsanitize=address -fno-sanitize-recover=address -fno-omit-frame-pointer -fsanitize=undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer")
 # set(CMAKE_CXX_CLANG_TIDY clang-tidy;--checks=*,-llvm-header-guard)

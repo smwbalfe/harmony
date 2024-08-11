@@ -1,0 +1,154 @@
+{
+  "$schema": "https://raw.githubusercontent.com/spdx/spdx-spec/v2.2.1/schemas/spdx-schema.json",
+  "spdxVersion": "SPDX-2.2",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "documentNamespace": "https://spdx.org/spdxdocs/liburing-x64-linux-2.6#1-978f0bb4-e52a-4ff6-b4a2-bda6409dccd3",
+  "name": "liburing:x64-linux@2.6#1 215f1c2e0758b77dff77efd8c921bc513ddbad30373d9a77c5cf8239db0b27a8",
+  "creationInfo": {
+    "creators": [
+      "Tool: vcpkg-2024-08-01-fd884a0d390d12783076341bd43d77c3a6a15658"
+    ],
+    "created": "2024-08-04T14:07:36Z"
+  },
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "GENERATES",
+      "relatedSpdxElement": "SPDXRef-binary"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-0"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-1"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-2"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-3"
+    },
+    {
+      "spdxElementId": "SPDXRef-binary",
+      "relationshipType": "GENERATED_FROM",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-0",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-1",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-2",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-3",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    }
+  ],
+  "packages": [
+    {
+      "name": "liburing",
+      "SPDXID": "SPDXRef-port",
+      "versionInfo": "2.6#1",
+      "downloadLocation": "NOASSERTION",
+      "homepage": "https://github.com/axboe/liburing",
+      "licenseConcluded": "(MIT OR LGPL-2.1) AND (MIT OR (GPL-2.0 WITH Linux-syscall-note))",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "description": "Linux-native io_uring I/O access library",
+      "comment": "This is the port (recipe) consumed by vcpkg."
+    },
+    {
+      "name": "liburing:x64-linux",
+      "SPDXID": "SPDXRef-binary",
+      "versionInfo": "215f1c2e0758b77dff77efd8c921bc513ddbad30373d9a77c5cf8239db0b27a8",
+      "downloadLocation": "NONE",
+      "licenseConcluded": "(MIT OR LGPL-2.1) AND (MIT OR (GPL-2.0 WITH Linux-syscall-note))",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "comment": "This is a binary package built by vcpkg."
+    },
+    {
+      "SPDXID": "SPDXRef-resource-1",
+      "name": "axboe/liburing",
+      "downloadLocation": "git+https://github.com/axboe/liburing@liburing-2.6",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "e5ce61e80fe90f95128e62abfec7771912fe98674f7dbf5806ed61cb386adecedf495c50cb77b684f5b61f48deb44ccb4e3ba032613920213366132bbbc908db"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": ".//home/shriller44/packages/vcpkg/ports/liburing/fix-configure.patch",
+      "SPDXID": "SPDXRef-file-0",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "10ca2f4e9c68bbe4bee4472a82c8a21df88646d810945521c21440d9d81b983d"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": ".//home/shriller44/packages/vcpkg/ports/liburing/disable-tests-and-examples.patch",
+      "SPDXID": "SPDXRef-file-1",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "22b7a2eaa9db4bf6651fc0fa54927a51f9f3a310504f278216cc239a633f394f"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": ".//home/shriller44/packages/vcpkg/ports/liburing/vcpkg.json",
+      "SPDXID": "SPDXRef-file-2",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "23ca8df2360eb71b9dedcfd036c575ef1c1b7847863d5949b4bbf5b6cf104b3c"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": ".//home/shriller44/packages/vcpkg/ports/liburing/portfile.cmake",
+      "SPDXID": "SPDXRef-file-3",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3580d8fccd7360c8a2635ec87207b7ed3dd79ea7cb6719ef5260e080974052b2"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    }
+  ]
+}

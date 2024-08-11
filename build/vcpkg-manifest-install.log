@@ -1,0 +1,43 @@
+Detecting compiler hash for triplet x64-linux...
+Compiler found: /usr/bin/c++
+The following packages will be built and installed:
+  * fmt:x64-linux@11.0.2
+    liburing:x64-linux@2.6#1
+    spdlog:x64-linux@1.14.1
+  * vcpkg-cmake:x64-linux@2024-04-23
+  * vcpkg-cmake-config:x64-linux@2024-05-23
+Additional packages (*) will be modified to complete this operation.
+Restored 5 package(s) from /home/shriller44/.cache/vcpkg/archives in 71.9 ms. Use --debug to see more details.
+Installing 1/5 liburing:x64-linux@2.6#1...
+Elapsed time to handle liburing:x64-linux: 1.04 ms
+liburing:x64-linux package ABI: 215f1c2e0758b77dff77efd8c921bc513ddbad30373d9a77c5cf8239db0b27a8
+Installing 2/5 vcpkg-cmake-config:x64-linux@2024-05-23...
+Elapsed time to handle vcpkg-cmake-config:x64-linux: 452 us
+vcpkg-cmake-config:x64-linux package ABI: 1212c748b4210871df26c70b449b0a8452fd74077584030273fb7c957433108a
+Installing 3/5 vcpkg-cmake:x64-linux@2024-04-23...
+Elapsed time to handle vcpkg-cmake:x64-linux: 451 us
+vcpkg-cmake:x64-linux package ABI: 70cc7e3fef2606a4125c991bebb382e84ae3c8a782eab35e7f452f9362b5e748
+Installing 4/5 fmt:x64-linux@11.0.2...
+Elapsed time to handle fmt:x64-linux: 987 us
+fmt:x64-linux package ABI: 1b4a47f1e4f5c645ce33c3c3f10e8c24e699510e3010fa8c13ce3c663e9b3a0c
+Installing 5/5 spdlog:x64-linux@1.14.1...
+Elapsed time to handle spdlog:x64-linux: 2.52 ms
+spdlog:x64-linux package ABI: 41f2983ccd4d65712df3dccfece3bc91f7aa15b38f388edbab1fbe5de2cf02fd
+Total install time: 5.51 ms
+liburing provides pkg-config modules:
+
+  # io_uring FFI library
+  liburing-ffi
+
+  # io_uring library
+  liburing
+
+The package spdlog provides CMake targets:
+
+    find_package(spdlog CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE spdlog::spdlog)
+
+    # Or use the header-only version
+    find_package(spdlog CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE spdlog::spdlog_header_only)
+

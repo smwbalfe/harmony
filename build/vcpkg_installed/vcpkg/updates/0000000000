@@ -1,0 +1,8 @@
+Package: liburing
+Version: 2.6
+Port-Version: 1
+Architecture: x64-linux
+Multi-Arch: same
+Abi: 215f1c2e0758b77dff77efd8c921bc513ddbad30373d9a77c5cf8239db0b27a8
+Description: Linux-native io_uring I/O access library
+Status: install ok half-installed

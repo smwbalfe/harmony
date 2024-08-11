@@ -1,4 +1,6 @@
 {
+  "name": "harmony",
+  "version": "1.0.0",
   "dependencies": [
     "liburing",
     "spdlog"

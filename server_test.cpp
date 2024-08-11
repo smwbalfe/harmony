@@ -4,7 +4,7 @@
 int main() {
     harmony::http_server server {8081};
 
-    server.set_resource_dir("/home/shriller44/dev/cpp/projects/harmony/data");
+    server.set_resource_dir("../data");
 
     server.get("/", [](harmony::request& request, harmony::response& response) -> harmony::task<void> {
         fmt::print("index route hit\n");

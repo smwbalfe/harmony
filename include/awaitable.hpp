@@ -19,6 +19,7 @@ namespace harmony {
                 acc_ptr_(std::move(accept_data_ptr)) {
 
 
+            fmt::print("getting sqe accept");
             acc_ptr_->entry_ = io_uring_get_sqe(&acc_ptr_->ring_.ring_);
             io_uring_prep_accept(acc_ptr_->entry_, acc_ptr_->server_fd_,
                                  (struct sockaddr *) &acc_ptr_->address_, &acc_ptr_->client_addr_len_, 0);
@@ -45,6 +46,8 @@ namespace harmony {
 
         explicit recv_awaitable(std::shared_ptr<recv_context> recv_ptr) :
                 recv_ptr_ {std::move(recv_ptr)} {
+
+            fmt::print("getting sqe recv");
             recv_ptr_->entry_ = io_uring_get_sqe(&recv_ptr_->r_.ring_);
             io_uring_prep_recv( recv_ptr_->entry_ , recv_ptr_->client_fd_, recv_ptr_->buf_, recv_ptr_->buf_size_, 0);
         }
@@ -68,6 +71,8 @@ namespace harmony {
 
         explicit send_awaitable(std::shared_ptr<send_context> send_ptr)
                 : send_ptr_ {std::move(send_ptr)} {
+
+            fmt::print("getting sqe send");
             send_ptr_->entry_ = io_uring_get_sqe(&send_ptr_->r_.ring_);
             io_uring_prep_send(send_ptr_->entry_, send_ptr_->client_fd_, send_ptr_->buf_, send_ptr_->buf_size_, 0);
         }

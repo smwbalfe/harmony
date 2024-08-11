@@ -1,0 +1,3 @@
+/home/shriller44/dev/cpp/projects/harmony/build/CMakeFiles/harmony.dir
+/home/shriller44/dev/cpp/projects/harmony/build/CMakeFiles/edit_cache.dir
+/home/shriller44/dev/cpp/projects/harmony/build/CMakeFiles/rebuild_cache.dir

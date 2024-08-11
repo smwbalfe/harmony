@@ -12,6 +12,8 @@
 #include <cstdint>
 #include <cassert>
 #include <coroutine>
+#include <memory>
+
 
 namespace harmony {
 
